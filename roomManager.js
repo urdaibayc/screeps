@@ -1,3 +1,7 @@
+//     //   TODO: handle container logic in roomManager
+
+
+
 module.exports = {
     // Define possible positions around a source
     positions: [
@@ -43,6 +47,6 @@ module.exports = {
 
     run: function () {
         const spots = this.get_sources_spots(this.sources, this.room_terrain);
-        console.log(spots.length);
+        // console.log(spots.length);
     }
 };

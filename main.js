@@ -10,15 +10,17 @@ module.exports.loop = function () {
         }
     }
 
- 
 
-// energyCapacityAvailable
+    // energyCapacityAvailable
+
+      console.log(Game.rooms);
+ 
 
   // Set some room info
   for(var name in Game.rooms) {
-    Game.rooms[name].visual.text(name+' --> lvl '+Game.rooms[name].controller.level+'-->', 1, 1, {align: 'left'});
-    Game.rooms[name].visual.text('| Energy | Max | Ctrl |', 1, 2, {align: 'left'});
-    Game.rooms[name].visual.text('| '+Game.rooms[name].energyAvailable+' | '+Game.rooms[name].energyCapacityAvailable+' | '+Game.rooms[name].controller.progress+' |', 1, 3, {align: 'left'});
+    Game.rooms[name].visual.text(name+' --> lvl '+Game.rooms[name].controller.level, 1, 1, {align: 'center'});
+    Game.rooms[name].visual.text('| Energy | Max | Ctrl |', 1, 2, {align: 'center'});
+    Game.rooms[name].visual.text('| '+Game.rooms[name].energyAvailable+' | '+Game.rooms[name].energyCapacityAvailable+' | '+Game.rooms[name].controller.progress+' |', 1, 3, {align: 'center'});
   }
 
 
