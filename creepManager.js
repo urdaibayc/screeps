@@ -2,6 +2,7 @@ const roleHarvester = require('role.harvester');
 const roleBuilder = require('role.builder');
 const roleUpgrader = require('role.upgrader');
 const roleRepairer = require('role.repairer');
+const roleTransporter = require('role.transporter');
 require('prototype.tower');
 
 module.exports = {
@@ -14,7 +15,9 @@ module.exports = {
     const builders = _.filter(Game.creeps, (creep) => creep.memory.role === 'builder');
     const upgraders = _.filter(Game.creeps, (creep) => creep.memory.role === 'upgrader');
     const repairers = _.filter(Game.creeps, (creep) => creep.memory.role === 'repairer');
-    
+    const transporters = _.filter(Game.creeps, (creep) => creep.memory.role === 'transporter');
+
+
     // Send spawning message to game_screen
     if(spawn.spawning) {
       var spawningCreep = Game.creeps[spawn.spawning.name];
@@ -28,8 +31,10 @@ module.exports = {
 
     let desiredHarvesters = 3
     let desiredUpgraders = 4
-    let desiredBuilders = 2
+    let desiredBuilders = 4
     let desiredRepairers = 1
+    let desiredTransporters = 1
+
 
 
 
@@ -69,6 +74,28 @@ module.exports = {
               }
           });
 
+    } else if (transporters.length < desiredTransporters) {
+      let leastAssignedSource = null;
+      let leastAssignedCount = Infinity;
+
+      // Find the source with the fewest assigned
+      for (const source of sources) {
+        const assignedCount = sourceAssignments[source.id] || 0;
+        if (assignedCount < leastAssignedCount) {
+          leastAssignedSource = source;
+          leastAssignedCount = assignedCount;
+        }
+      }
+      spawn.spawnCreep(
+        [WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE],
+        'Transporter' + Game.time,
+        { memory: {
+          role: 'transporter',
+          sourceId: leastAssignedSource.id, // Assign the least used source
+          harvesting: false,
+          building: false,
+          }
+        });
     } else if (upgraders.length < desiredUpgraders) {
       let leastAssignedSource = null;
       let leastAssignedCount = Infinity;
@@ -135,7 +162,7 @@ module.exports = {
           building: false,
           }
         });
-    }
+    } 
     // Assign roles to creeps
     for (let name in Game.creeps) {
       const creep = Game.creeps[name];
@@ -147,6 +174,8 @@ module.exports = {
         roleBuilder.run(creep);
       } else if (creep.memory.role === 'repairer') {
         roleBuilder.run(creep);
+      } else if (creep.memory.role === 'transporter') {
+        roleTransporter.run(creep);
       }
     }
 

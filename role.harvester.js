@@ -29,11 +29,11 @@ module.exports = {
                 visualizePathStyle: { stroke: '#ffaa00' }
             });
         }
-    }
+      }
 
       // Return logic
     else {
-      // Select target structure (only calculate once)
+      // Select target structure 
       let target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
         filter: (structure) =>
           (structure.structureType === STRUCTURE_CONTAINER ||
