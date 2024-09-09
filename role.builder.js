@@ -32,12 +32,13 @@ if (container && container.store[RESOURCE_ENERGY] > 0) { // Check if container h
   if (creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
     creep.moveTo(container, { visualizePathStyle: { stroke: '#ffaa00' } });
   }
-} else {
-        // Harvest from source
-        if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
-          creep.moveTo(source, { visualizePathStyle: { stroke: '#ffaa00' } });
-        }
-      }
+} 
+    // else {
+    //     // Harvest from source
+    //     if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
+    //       creep.moveTo(source, { visualizePathStyle: { stroke: '#ffaa00' } });
+    //     }
+    //   }
     }
       // Building or repairing logic
       else {
