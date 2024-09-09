@@ -16,7 +16,7 @@ module.exports = {
     // Function to find available spots around sources
     get_sources_spots: function (sources, room_terrain){
 
-        available_spots = [],
+        const available_spots = [];
 
         // Iterate over each source
         sources.forEach(source => {
@@ -25,21 +25,18 @@ module.exports = {
                 this.positions[i].forEach(function(value, idx){ 
                     let coords = [value + source.pos.x, source.pos.y]; // Calculate the actual position
                     let terrain = room_terrain.get(coords[0], coords[1]); // Get terrain at the calculated position
-                    console.log(terrain);
                     // Check if the terrain is plain or swamp, then add to available spots
-                    if (terrain === 'plain' || terrain === 'swamp') {
-                        // console.log(terrain); 
-                        available_spots.push(coords); 
+                    if (terrain === 0 || terrain === 2) {
+                        available_spots.push(coords);
                     }
                 });
             } 
         });
-        console.log(available_spots);
+        console.log(available_spots.length);
         return available_spots
     },
 
     run: function () {
         const spots = this.get_sources_spots(this.sources, this.room_terrain);
-        // console.log(spots);
     }
 };
