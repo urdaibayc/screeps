@@ -26,10 +26,10 @@ module.exports = {
     }
 
 
-    let desiredHarvesters = 3
-    let desiredUpgraders = 1
-    let desiredBuilders = 3
-    let desiredRepairers = 0
+    let desiredHarvesters = 2
+    let desiredUpgraders = 0
+    let desiredBuilders = 1
+    let desiredRepairers = 1
 
 
 
@@ -58,7 +58,7 @@ module.exports = {
         }
       }
       spawn.spawnCreep(
-        [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
+        [WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
         'Harvester' + Game.time,
           {
             memory: {
@@ -82,7 +82,8 @@ module.exports = {
         }
       }
         spawn.spawnCreep(
-          [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],'Upgrader' + Game.time,
+          [WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
+          'Upgrader' + Game.time,
           { memory: {
             role: 'upgrader',
             sourceId: leastAssignedSource.id, // Assign the least used source
@@ -103,7 +104,7 @@ module.exports = {
         }
       }
       spawn.spawnCreep(
-        [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
+        [WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
         'Builder' + Game.time,
         { memory: {
           role: 'builder',
@@ -125,7 +126,7 @@ module.exports = {
         }
       }
       spawn.spawnCreep(
-        [WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE],
+        [WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE],
         'Repairer' + Game.time,
         { memory: {
           role: 'repairer',
