@@ -2,7 +2,7 @@ const roleHarvester = require('role.harvester');
 const roleBuilder = require('role.builder');
 const roleUpgrader = require('role.upgrader');
 const roleRepairer = require('role.repairer');
-
+require('prototype.tower');
 
 module.exports = {
   run: function () {
@@ -26,13 +26,8 @@ module.exports = {
     }
 
 
-    // Simple formula to automate number of workers
-    // let desiredHarvesters = Math.ceil(spawn.room.find(FIND_SOURCES).length * 1.5); // 1.5 harvesters per source
-    // let desiredUpgraders = Math.floor(spawn.room.energyCapacityAvailable / 500); // More upgraders with higher energy capacity
-    // let desiredBuilders = spawn.room.find(FIND_CONSTRUCTION_SITES).length; // One builder per construction site
-
-    let desiredHarvesters = 1
-    let desiredUpgraders = 2
+    let desiredHarvesters = 3
+    let desiredUpgraders = 1
     let desiredBuilders = 3
     let desiredRepairers = 0
 
@@ -63,8 +58,8 @@ module.exports = {
         }
       }
       spawn.spawnCreep(
-          [WORK, CARRY, CARRY, MOVE, MOVE],
-          'Harvester' + Game.time,
+        [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
+        'Harvester' + Game.time,
           {
             memory: {
               role: 'harvester',
@@ -87,8 +82,7 @@ module.exports = {
         }
       }
         spawn.spawnCreep(
-          [WORK, CARRY, CARRY, MOVE, MOVE],
-          'Upgrader' + Game.time,
+          [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],'Upgrader' + Game.time,
           { memory: {
             role: 'upgrader',
             sourceId: leastAssignedSource.id, // Assign the least used source
@@ -96,7 +90,6 @@ module.exports = {
             building: false,
             }
           });
-
     } else if (builders.length < desiredBuilders) {
       let leastAssignedSource = null;
       let leastAssignedCount = Infinity;
@@ -110,7 +103,7 @@ module.exports = {
         }
       }
       spawn.spawnCreep(
-        [WORK, CARRY, CARRY, MOVE, MOVE],
+        [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
         'Builder' + Game.time,
         { memory: {
           role: 'builder',
@@ -142,9 +135,6 @@ module.exports = {
           }
         });
     }
-
-
-
     // Assign roles to creeps
     for (let name in Game.creeps) {
       const creep = Game.creeps[name];
@@ -158,5 +148,19 @@ module.exports = {
         roleBuilder.run(creep);
       }
     }
+
+    // find all towers
+    var towers = _.filter(Game.structures, s => s.structureType == STRUCTURE_TOWER);
+    // for each tower
+    for (let tower of towers) {
+        var executed = false;
+        if(!tower.defend()){
+            if(!tower.healCreeps()){
+                tower.repairP();
+            }    
+        }
+    }
+
+
   }
 };

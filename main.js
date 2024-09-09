@@ -1,4 +1,5 @@
 const creepManager = require('creepManager');
+const roomManager = require('roomManager');
 
 module.exports.loop = function () {
     // 1. Clean up memory
@@ -8,6 +9,7 @@ module.exports.loop = function () {
             delete Memory.creeps[name];
         }
     }
+
  
 
 // energyCapacityAvailable
@@ -23,4 +25,6 @@ module.exports.loop = function () {
   // 2. Manage Creeps
   creepManager.run();
 
+  // 3. Manage Rooms
+  roomManager.run();
 }
