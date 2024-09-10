@@ -29,9 +29,9 @@ module.exports = {
     }
 
 
-    let desiredHarvesters = 4
+    let desiredHarvesters = 5
     let desiredUpgraders = 2
-    let desiredBuilders = 1
+    let desiredBuilders = 2
     let desiredRepairers = 1
     let desiredTransporters = 1
 
@@ -63,7 +63,7 @@ module.exports = {
         }
       }
       spawn.spawnCreep(
-        [WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
+        [WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE],
         'Harvester' + Game.time,
           {
             memory: {
@@ -87,7 +87,7 @@ module.exports = {
         }
       }
       spawn.spawnCreep(
-        [WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
+        [WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY,MOVE, MOVE, MOVE],
         'Transporter' + Game.time,
         { memory: {
           role: 'transporter',
@@ -109,7 +109,7 @@ module.exports = {
         }
       }
         spawn.spawnCreep(
-          [WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
+          [WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY,MOVE, MOVE, MOVE],
           'Upgrader' + Game.time,
           { memory: {
             role: 'upgrader',
@@ -153,7 +153,7 @@ module.exports = {
         }
       }
       spawn.spawnCreep(
-        [WORK, WORK, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
+        [WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
         'Repairer' + Game.time,
         { memory: {
           role: 'repairer',

@@ -53,15 +53,6 @@ module.exports = {
             structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
       });
 
-      if (!target) {
-        target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-          filter: (structure) =>
-            structure.structureType === STRUCTURE_SPAWN ||
-            structure.structureType === STRUCTURE_TOWER &&
-            structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
-        });
-      }
-
       // Transfer energy if a target is found
       if (target) {
         if (creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {

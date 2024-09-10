@@ -7,7 +7,7 @@ StructureTower.prototype.defend =
         if (target) {
             // ...FIRE!
             
-            this.attack(target);
+            // this.attack(target);
             return 1;
         }
         else{
